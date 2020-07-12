@@ -1,0 +1,19 @@
+version: '3.1'
+
+services:
+
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    image: docker.pkg.github.com/timboslicecreative/web-app/api
+    environment:
+      NODE_ENV: development
+
+  web:
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+    image: docker.pkg.github.com/timboslicecreative/web-app/web
+    environment:
+      NODE_ENV: development

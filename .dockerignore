@@ -1,0 +1,6 @@
+.idea
+.git
+docs
+dist
+node_modules
+.env.secret

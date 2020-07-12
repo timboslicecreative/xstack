@@ -1,0 +1,15 @@
+:root {
+    --color-background-default: #ffffff;
+    --color-text-default: #000000
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    color: var(--color-text-default);
+    background-color: var(--color-background-default)
+}
+
+main {}
+
