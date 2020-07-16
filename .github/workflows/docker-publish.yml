@@ -1,4 +1,4 @@
-name: Publish Docker image
+name: Publish Docker Images
 on:
   push:
     branches:
@@ -16,6 +16,6 @@ jobs:
       - name: Build Services
         run: docker-compose build
       - name: Log into registry
-        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker-registry.hk1.timbocloud.com -u ${{ github.actor }} --password-stdin
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
       - name: Push Images
         run: docker-compose push
