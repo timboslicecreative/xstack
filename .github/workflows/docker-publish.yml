@@ -14,8 +14,8 @@ jobs:
       - name: Check out the repo
         uses: actions/checkout@v2
       - name: Build Services
-        run: docker-compose -f docker-compose.yml b -f docker-compose.publish.yml build
+        run: docker-compose build
       - name: Log into registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker-registry.hk1.timbocloud.com -u ${{ github.actor }} --password-stdin
       - name: Push Images
-        run: -f docker-compose.yml b -f docker-compose.publish.yml push
+        run: docker-compose push

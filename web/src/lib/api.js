@@ -1,8 +1,8 @@
-const fetch = require('node-fetch');
 const GRAPHQL_API = process.env.GRAPHQL_API;
+const PUBLIC_GRAPHQL_API = process.env.NEXT_PUBLIC_GRAPHQL_API;
 
-export async function fetchAPI(query, { variables } = {}) {
-    const res = await fetch(GRAPHQL_API, {
+export async function fetchAPI(query, {variables, api = PUBLIC_GRAPHQL_API} = {}) {
+    const res = await fetch(api, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -19,3 +19,6 @@ export async function fetchAPI(query, { variables } = {}) {
     }
     return json.data
 }
+
+export const fetchLive = (query, options) => fetchAPI(query, {...options, api: PUBLIC_GRAPHQL_API});
+export const fetchStatic = (query, options) =>  fetchAPI(query, {...options, api: GRAPHQL_API});

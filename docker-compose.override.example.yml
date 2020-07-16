@@ -1,0 +1,28 @@
+version: '3.1'
+
+services:
+
+  api:
+    image: strapi/strapi
+    environment:
+      NODE_ENV: development
+
+  web:
+    environment:
+      NODE_ENV: development
+    command: yarn wait-dev
+
+  mongo_express:
+    image: mongo-express
+    environment:
+      - ME_CONFIG_MONGODB_SERVER=db
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=ausiibgadi3ba37b
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=dcn747fn8snu36tb
+    depends_on:
+      - db
+    links:
+      - db
+    ports:
+      - 3002:8081
+    networks:
+      - webapp

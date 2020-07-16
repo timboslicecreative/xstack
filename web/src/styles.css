@@ -1,6 +1,6 @@
 :root {
-    --color-background-default: #ffffff;
-    --color-text-default: #000000
+    --color-background-default: #1D1D1D;
+    --color-text-default: #7E7E7E
 }
 
 body {
@@ -13,3 +13,11 @@ body {
 
 main {}
 
+.backLink {
+    line-height: 24px;
+}
+
+.backLink svg {
+    display: inline-block;
+    vertical-align: middle;
+}

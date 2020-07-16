@@ -4,37 +4,24 @@ services:
 
   db:
     image: mongo:4
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: ausiibgadi3ba37b
-      MONGO_INITDB_ROOT_PASSWORD: dcn747fn8snu36tb
+    env_file:
+      - db/db.env
     volumes:
       - db:/data/db
     command: --quiet
     networks:
-      - framework
+      - webapp
 
   thumbor:
     image: apsl/thumbor:latest
-    environment:
-      - QUALITY:100
-      - LOADER:thumbor.loaders.file_loader
-      - RESULT_STORAGE:thumbor.result_storages.file_storage
-      - RESULT_STORAGE_EXPIRATION_SECONDS:0
-      - RESULT_STORAGE_FILE_STORAGE_ROOT_PATH:/tmp/media_cache
-      - RESULT_STORAGE_STORES_UNSAFE:True
-      - UPLOAD_ENABLED:False
-      - UPLOAD_MAX_SIZE:25000000
-      - ALLOW_UNSAFE_URL:True
-      - UPLOAD_DELETE_ALLOWED:False
-      - FILE_LOADER_ROOT_PATH:/media
-      - PRESERVE_EXIF_INFO:False
-      - FILTERS=['thumbor.filters.brightness', 'thumbor.filters.contrast', 'thumbor.filters.rgb', 'thumbor.filters.quality', 'thumbor.filters.noise', 'thumbor.filters.watermark', 'thumbor.filters.equalize', 'thumbor.filters.fill', 'thumbor.filters.sharpen', 'thumbor.filters.grayscale', 'thumbor.filters.rotate', 'thumbor.filters.format', 'thumbor.filters.max_bytes', 'thumbor.filters.convolution', 'thumbor.filters.blur', 'thumbor.filters.extract_focal', 'thumbor.filters.no_upscale', 'thumbor.filters.saturation']
+    env_file:
+      - thumbor/thumbor.env
     volumes:
       - thumbor:/data
       - media:/media
       - media_cache:/tmp/media_cache
     networks:
-      - framework
+      - webapp
 
   nginx:
     image: nginx:latest
@@ -46,53 +33,48 @@ services:
     ports:
       - 3001:80
     networks:
-      - framework
+      - webapp
 
   api:
-    image: strapi/strapi
-    environment:
-      NODE_ENV: development
-      DATABASE_CLIENT: mongo
-      DATABASE_HOST: db
-      DATABASE_PORT: 27017
-      DATABASE_USERNAME: ausiibgadi3ba37b
-      DATABASE_PASSWORD: dcn747fn8snu36tb
-      DATABASE_NAME: strapi_dev
-      EXTRA_ARGS: --no-run --quickstart
-    depends_on:
-      - db
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    image: docker.pkg.github.com/timboslicecreative/web-app/api
+    env_file:
+      - api/api.env
     volumes:
       - ./api/src:/srv/app
-      - media:/srv/app/public/uploads
+      - /srv/app/node_modules
+      - /srv/app/.cache
+      - /srv/app/build
     ports:
       - 1337:1337
+    depends_on:
+      - db
     networks:
-      - framework
+      - webapp
 
   web:
-    image: "node:12"
     build:
-      context: .
-      dockerfile: Dockerfile-web-create
-    environment:
-      NODE_ENV: development
-      GRAPHQL_API: http://strapi:1337/graphql
-      HEALTHCHECK_URL: http://localhost:1337/_health
-      THUMBOR_URL: http://localhost:3030
-    working_dir: /srv/app
-    command: yarn dev
+      context: ./web
+      dockerfile: Dockerfile
+    image: docker.pkg.github.com/timboslicecreative/web-app/web
+    env_file:
+      - web/web.env
+    volumes:
+      - ./web/src:/srv/app
+      - /srv/app/node_modules
+      - /srv/app/.next
+    ports:
+      - 3000:3000
     depends_on:
       - api
       - nginx
-    volumes:
-      - ./web/src:/srv/app
-    ports:
-      - 3000:3000
     networks:
-      - framework
+      - webapp
 
 networks:
-  framework:
+  webapp:
     driver: bridge
 
 volumes:

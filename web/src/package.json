@@ -1,28 +1,23 @@
 {
-  "name": "basic-css",
+  "name": "web",
   "version": "1.0.0",
   "scripts": {
     "dev": "next dev",
     "start": "next start",
     "build": "next build",
-    "build-start": "wait-on $HEALTHCHECK_URL -i 1000 && next build && next start"
+    "wait-dev": "wait-on $HEALTHCHECK_URL -i 1000 && next dev",
+    "wait-build-start": "wait-on $HEALTHCHECK_URL -i 1000 && next build && next start"
   },
   "dependencies": {
     "@apollo/react-hooks": "^3.1.5",
     "@apollo/react-ssr": "^3.1.5",
     "apollo-boost": "^0.4.8",
-    "apollo-cache-inmemory": "^1.6.5",
-    "apollo-client": "^2.6.8",
-    "apollo-link-http": "^1.5.17",
     "graphql": "^15.0.0",
     "graphql-tag": "^2.10.3",
-    "isomorphic-unfetch": "^3.0.0",
-    "next": "9.3.6",
-    "next-apollo": "^4.0.1",
+    "next": "^9.4.4",
     "next-with-apollo": "^5.0.1",
-    "node-fetch": "^2.6.0",
-    "react": "16.13.1",
-    "react-dom": "16.13.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
     "react-icons": "^3.10.0",
     "react-markdown": "^4.3.1",
     "wait-on": "^5.0.1"

@@ -1,6 +1,8 @@
 import Head from 'next/head'
 import Link from 'next/link'
-import styles from "./Index.module.css"
+import {fetchStatic} from "../lib/api";
+import footer from '../components/Footer';
+import styles from './Index.module.css'
 
 export default function Index({posts}) {
     return (
@@ -10,6 +12,7 @@ export default function Index({posts}) {
                 <link rel="icon" href="/favicon.ico"/>
             </Head>
             <main className={styles.index}>
+                {posts.length <= 0 ? "Publish a post via the api to see it here" : null }
                 <ol>
                     {posts.map(post => <li key={post.slug}>
                         <Link href={`/post/[slug]`} as={`/post/${post.slug}`}>
@@ -25,25 +28,17 @@ export default function Index({posts}) {
 };
 
 export async function getStaticProps({}) {
-    // const query = `query PublishedPosts($where: JSON, $sort: String) {
-    //     posts(where: $where, sort: $sort) {
-    //         title, slug,
-    //     }
-    // }`;
-    // const variables = {
-    //     where: {status: 'published'},
-    //     sort: "date:desc"
-    // };
-    // const data = (await fetchAPI(query, {variables})) || [];
-    // return {
-    //     props: {posts: data.posts},
-    // }
-
-    // Return mocked posts instead of using api fetch above
-    return {props: {posts: mockPosts}}
+    const query = `query PublishedPosts($where: JSON, $sort: String) {
+        posts(where: $where, sort: $sort) {
+            title, slug,
+        }
+    }`;
+    const variables = {
+        where: {status: 'published'},
+        sort: "date:asc"
+    };
+    const data = (await fetchStatic(query, {variables})) || [];
+    return {
+        props: {posts: data.posts},
+    }
 }
-
-export const mockPosts = [
-    {title: 'Example Post One', slug: 'example-post-one', content: 'Post one content'},
-    {title: 'Example Post Two', slug: 'example-post-two', content: 'Post two content'}
-];

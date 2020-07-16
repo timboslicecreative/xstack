@@ -6,3 +6,5 @@ dist/
 .cache/
 yarn-error.log
 docker-compose.override.yml
+TODO.md
+.graphqlconfig
