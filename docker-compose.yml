@@ -4,37 +4,7 @@ services:
 
   db:
     image: mongo:4
-    env_file:
-      - db/db.env
-    volumes:
-      - db:/data/db
     command: --quiet
-    networks:
-      - webapp
-
-  thumbor:
-    build:
-      context: ./thumbor
-      dockerfile: Dockerfile
-    image: docker.pkg.github.com/timboslicecreative/xstack/thumbor
-    env_file:
-      - thumbor/thumbor.env
-    volumes:
-      - thumbor:/data
-      - media:/media
-      - media_cache:/tmp/media_cache
-    networks:
-      - webapp
-
-  nginx:
-    image: nginx:latest
-    depends_on:
-      - thumbor
-    volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
-      - logs:/logs
-    ports:
-      - 3001:80
     networks:
       - webapp
 
@@ -43,19 +13,27 @@ services:
       context: ./api
       dockerfile: Dockerfile
     image: docker.pkg.github.com/timboslicecreative/xstack/api
-    env_file:
-      - api/api.db.env
-      - api/api.aws.env
-    volumes:
-      - ./api/src:/srv/app
-      - /srv/app/node_modules
-      - /srv/app/.cache
-      - /srv/app/build
-      - ./packages:/srv/app/packages
     ports:
       - 1337:1337
     depends_on:
       - db
+    networks:
+      - webapp
+
+  thumbor:
+    build:
+      context: ./thumbor
+      dockerfile: Dockerfile
+    image: docker.pkg.github.com/timboslicecreative/xstack/thumbor
+    networks:
+      - webapp
+
+  nginx:
+    image: nginx:latest
+    depends_on:
+      - thumbor
+    ports:
+      - 3001:80
     networks:
       - webapp
 
@@ -64,12 +42,6 @@ services:
       context: ./web
       dockerfile: Dockerfile
     image: docker.pkg.github.com/timboslicecreative/xstack/web
-    env_file:
-      - web/web.env
-    volumes:
-      - ./web/src:/srv/app
-      - /srv/app/node_modules
-      - /srv/app/.next
     ports:
       - 3000:3000
     depends_on:
