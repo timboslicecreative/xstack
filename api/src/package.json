@@ -12,16 +12,17 @@
   "devDependencies": {},
   "dependencies": {
     "slugify": "^1.4.4",
-    "strapi": "3.0.5",
-    "strapi-admin": "3.0.5",
-    "strapi-connector-mongoose": "3.0.5",
-    "strapi-plugin-content-manager": "3.0.5",
-    "strapi-plugin-content-type-builder": "3.0.5",
-    "strapi-plugin-email": "3.0.5",
-    "strapi-plugin-graphql": "3.0.5",
-    "strapi-plugin-upload": "3.0.5",
-    "strapi-plugin-users-permissions": "3.0.5",
-    "strapi-utils": "3.0.5"
+    "strapi": "^3.0.6",
+    "strapi-admin": "^3.0.6",
+    "strapi-connector-mongoose": "^3.0.6",
+    "strapi-plugin-content-manager": "^3.0.6",
+    "strapi-plugin-content-type-builder": "^3.0.6",
+    "strapi-plugin-email": "^3.0.6",
+    "strapi-plugin-graphql": "^3.0.6",
+    "strapi-plugin-upload": "^3.0.6",
+    "strapi-plugin-users-permissions": "^3.0.6",
+    "strapi-provider-upload-aws-s3": "^3.0.6",
+    "strapi-utils": "^3.0.6"
   },
   "author": {
     "name": "A Strapi developer"

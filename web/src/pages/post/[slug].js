@@ -2,6 +2,7 @@ import Link from "next/link";
 import {MdChevronLeft} from "react-icons/md";
 import {fetchStatic} from "../../lib/api";
 import styles from "./Post.module.css";
+import {thurl} from "../../lib/thumbor";
 
 export default function Post({post}) {
     return (
@@ -10,6 +11,7 @@ export default function Post({post}) {
             <header>
                 <h1>{post.title}</h1>
             </header>
+            <img src={thurl(post.hero.url, {width: 100, height: 100})} />
             <section>
                 <p>{post.content}</p>
             </section>
@@ -36,6 +38,7 @@ export async function getStaticProps({params}) {
     const query = `query postBySlug($slug: String!){
         postBySlug(slug: $slug) {
             slug, title, content,
+            hero {url, width, height}
         }}`;
     const variables = {
         slug: params.slug

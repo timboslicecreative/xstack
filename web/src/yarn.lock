@@ -4020,7 +4020,7 @@ next@^9.4.4:
     webpack "4.43.0"
     webpack-sources "1.4.3"
 
-node-fetch@2.6.0, node-fetch@^2.2.0, node-fetch@^2.6.0:
+node-fetch@2.6.0, node-fetch@^2.2.0:
   version "2.6.0"
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.0.tgz#e633456386d4aa55863f676a7ab0daa8fdecb0fd"
   integrity sha512-8dG4H5ujfvFiqDmVu9fQ5bOHUC15JMjMY/Zumv26oOvvVJjM67KF8koCWIabKQ1GJIa9r2mMZscBq/TbdOcmNA==
@@ -5638,6 +5638,11 @@ through2@^2.0.0:
   dependencies:
     readable-stream "~2.3.6"
     xtend "~4.0.1"
+
+thumbor@^0.1.5:
+  version "0.1.5"
+  resolved "https://registry.yarnpkg.com/thumbor/-/thumbor-0.1.5.tgz#13e03d2333b408b1bc8539fca9f273ae8b8fb1f3"
+  integrity sha1-E+A9IzO0CLG8hTn8qfJzrouPsfM=
 
 timers-browserify@^2.0.4:
   version "2.0.11"

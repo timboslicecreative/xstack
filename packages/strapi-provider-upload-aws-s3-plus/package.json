@@ -1,0 +1,11 @@
+{
+  "name": "strapi-provider-upload-aws-s3-plus",
+  "version": "1.0.0",
+  "description": "Strapi upload provider using asw-s3 allowing the use of ACL ",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "echo \"no tests yet\""
+  },
+  "author": "timboslicecreative",
+  "license": "ISC"
+}
