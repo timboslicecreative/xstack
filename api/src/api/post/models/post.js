@@ -6,6 +6,8 @@ const slugify = require('slugify');
  * to customize this model
  */
 
+
+
 module.exports = {
   lifecycles: {
     beforeCreate(data) {

@@ -6,7 +6,7 @@ services:
     image: mongo:4
     command: --quiet
     networks:
-      - webapp
+      - xstack
 
   api:
     build:
@@ -18,24 +18,24 @@ services:
     depends_on:
       - db
     networks:
-      - webapp
+      - xstack
 
   thumbor:
-    build:
-      context: ./thumbor
-      dockerfile: Dockerfile
-    image: docker.pkg.github.com/timboslicecreative/xstack/thumbor
+    image: apsl/thumbor:latest
     networks:
-      - webapp
+      - xstack
 
   nginx:
-    image: nginx:latest
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    image: docker.pkg.github.com/timboslicecreative/xstack/nginx
     depends_on:
       - thumbor
     ports:
       - 3001:80
     networks:
-      - webapp
+      - xstack
 
   web:
     build:
@@ -48,16 +48,13 @@ services:
       - api
       - nginx
     networks:
-      - webapp
+      - xstack
 
 networks:
-  webapp:
+  xstack:
     driver: bridge
 
 volumes:
   db: {}
   thumbor: {}
-  media: {}
-  media_cache: {}
-  frontend_cache: {}
   logs: {}

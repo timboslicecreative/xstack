@@ -11,7 +11,8 @@ export default function Post({post}) {
             <header>
                 <h1>{post.title}</h1>
             </header>
-            <img src={thurl(post.hero.url, {width: 100, height: 100})} />
+            <img src={post.hero.thumbnail.publicUrl} />
+            <img src={thurl.build(post.hero.url, {width: 540})} />
             <section>
                 <p>{post.content}</p>
             </section>
@@ -38,7 +39,9 @@ export async function getStaticProps({params}) {
     const query = `query postBySlug($slug: String!){
         postBySlug(slug: $slug) {
             slug, title, content,
-            hero {url, width, height}
+            hero {
+                url, width, height, formats
+            }
         }}`;
     const variables = {
         slug: params.slug

@@ -1,7 +1,7 @@
 FROM strapi/base
 ENV NODE_ENV production
 
-WORKDIR /srv/app
+WORKDIR /usr/src/app
 
 COPY ./src/package*.json ./
 COPY ./src/yarn.lock ./

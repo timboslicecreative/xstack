@@ -21,6 +21,7 @@
     "react-icons": "^3.10.0",
     "react-markdown": "^4.3.1",
     "thumbor": "^0.1.5",
+    "thurl": "^0.1.1",
     "wait-on": "^5.0.1"
   },
   "license": "ISC"

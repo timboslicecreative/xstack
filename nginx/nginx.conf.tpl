@@ -28,8 +28,11 @@ http {
         client_body_timeout   300;
         client_header_timeout 300;
 
-        access_log /logs/access.log;
-        error_log /logs/error.log;
+        # Log access as ENV Variable
+        access_log $ACCESS_LOG_OUTPUT;
+
+        # Log access as ENV Variable
+        error_log $ERROR_LOG_OUTPUT;
 
         gzip on;
         gzip_disable "msie6";
@@ -41,7 +44,7 @@ http {
         gzip_types text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript;
 
         upstream thumbor {
-            server thumbor:8000;
+            server $HOST_NAME:$HOST_PORT;
         }
 
         server {
@@ -58,7 +61,7 @@ http {
                 }
 
                 location = /favicon.ico {
-                  return 204;
+                  return 404;
                   access_log     off;
                   log_not_found  off;
                 }
