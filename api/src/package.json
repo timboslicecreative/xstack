@@ -14,7 +14,7 @@
   "devDependencies": {},
   "dependencies": {
     "slugify": "^1.4.4",
-    "strapi": "~3.1.4",
+    "strapi": "~3.6.8",
     "strapi-admin": "~3.1.4",
     "strapi-connector-mongoose": "~3.1.4",
     "strapi-plugin-content-manager": "~3.1.4",
